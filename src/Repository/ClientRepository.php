@@ -16,6 +16,17 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
+public function findByCompanyName(string $companyName): array
+{
+    return $this->createQueryBuilder('c')
+        ->where('c.companyName LIKE :companyName')
+        ->setParameter('companyName', $companyName . '%')
+        ->orderBy('c.companyName', 'ASC')
+        ->getQuery()
+        ->getResult();
+
+}
+
     //    /**
     //     * @return Client[] Returns an array of Client objects
     //     */
