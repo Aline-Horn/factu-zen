@@ -29,11 +29,20 @@ final class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/clients/{id}', name: "client_show")]
+     #[Route('/clients/{id}/invoices', name: "client_invoices")]
+    public function showInvoices(Client $client): Response
+    {
+        $invoices = $client->getInvoices();
+        return $this->render('client/invoices.html.twig', [
+            "client" => $client,
+            "invoices" => $invoices,
+        ]);
+
+    }#[Route('/clients/{id}', name: "client_show")]
     public function show(Client $client): Response
     {
         return $this->render('client/show.html.twig', [
             "client" => $client
-        ]);
-    }
-}
+        ]);}
+   
+} 
