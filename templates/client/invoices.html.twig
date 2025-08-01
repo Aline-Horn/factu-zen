@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} {{client.companyName}}{% endblock %}
+
+{% block body %}
+<section class="container">
+<h1>{{ client.companyName }}</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Reference</th>
+      <th scope="col">Date</th>
+      <th scope="col">Status</th>
+      <th scope="col">Actions</th>
+  
+    </tr>
+  </thead>
+
+<tbody>
+    {% for invoice in invoices %}
+    <tr>
+       <td>{{invoice.reference}}</td>
+       <td>{{invoice.issuedAt|date('d/m/Y')}}</td>
+      <td>{{invoice.status}}</td>
+    </tr>
+
+    {% else %}
+     <td>Any invoice for the client</td>
+    {% endfor %}
+
+  </tbody>
+</table>
+</section>
+{% endblock %}
+
+
+
