@@ -17,7 +17,11 @@
 
 
     </head>
-    <body>
+    
+        <body class="bg-success">
+        {% block header %}
+        {% include "header.html.twig" %}
+        {% endblock %}
         {% block body %}{% endblock %}
     </body>
 </html>

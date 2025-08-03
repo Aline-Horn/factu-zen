@@ -1,10 +1,9 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}} Liste de clients {% endblock %}
 
 {% block body %}
 <section class="container">
-<h1>Liste de clients</h1>
+<h1>Customer list</h1>
 <table class="table">
   <thead>
     <tr>
@@ -22,7 +21,10 @@
       <td>{{client.contactName}}</td>
       <td>{{client.email}}</td>
       <td>{{client.phone}}</td>
-        <td><a href={{path("client_show", {"id":client.id})}}>Voir</a></td>
+      <td>
+      <a href={{ path('client_show', {"id":client.id})}}>Voir</a>
+      <a href={{ path('client_invoices', {"id":client.id})}}>Factures</a>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
