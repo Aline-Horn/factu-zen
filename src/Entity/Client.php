@@ -6,6 +6,7 @@ use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
@@ -22,6 +23,7 @@ class Client
     private ?string $contactName = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\Email(message: "L'email '{{ value }}' n'est pas valide.")]
     private ?string $email = null;
 
     #[ORM\Column(length: 15, nullable: true)]
@@ -112,7 +114,7 @@ class Client
     public function removeInvoice(Invoice $invoice): static
     {
         if ($this->invoices->removeElement($invoice)) {
-            // set the owning side to null (unless already changed)
+        
             if ($invoice->getClient() === $this) {
                 $invoice->setClient(null);
             }

@@ -6,6 +6,7 @@ use App\Repository\InvoiceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
 class Invoice
@@ -20,6 +21,8 @@ class Invoice
 
     #[ORM\Column]
     private ?\DateTimeImmutable $issuedAt = null;
+    #[Assert\NotBlank(message: "La date d'émission est obligatoire.")]
+    #[Assert\Type(\DateTimeInterface::class, message: "La date doit être valide.")]
 
     #[ORM\Column(length: 20)]
     private ?string $status = null;
@@ -120,7 +123,7 @@ public function setReference(string $reference): static
     public function removeInvoiceLine(InvoiceLine $invoiceLine): static
     {
         if ($this->invoiceLines->removeElement($invoiceLine)) {
-            // set the owning side to null (unless already changed)
+        
             if ($invoiceLine->getInvoice() === $this) {
                 $invoiceLine->setInvoice(null);
             }

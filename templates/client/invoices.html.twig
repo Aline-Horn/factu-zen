@@ -18,7 +18,7 @@
   </thead>
 
 <tbody>
-    {% for invoice in invoices %}
+    {% for invoice in client.invoices %}
     <tr>
        <td>{{invoice.reference}}</td>
        <td>{{invoice.issuedAt|date('d/m/Y')}}</td>
